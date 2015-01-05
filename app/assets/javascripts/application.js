@@ -13,5 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require bootstrap.min
+//= require ace-extra.min
 //= require ace.min
 //= require_tree .
