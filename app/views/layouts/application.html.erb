@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Newmerger</title>
+  <meta charset="utf-8" />
   <!-- use the following meta to force IE use its most up to date rendering engine -->
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -140,6 +141,7 @@
     <div class="page-content">
       <div class="row">
         <div class="col-xs-12">
+          <%= flash_messages %>
           <%= yield %>
         </div><!-- /.col -->
       </div><!-- /.row -->
