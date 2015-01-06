@@ -9,7 +9,7 @@
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body class="no-skin">
 
 
 <div id="navbar" class="navbar navbar-default">
@@ -30,7 +30,20 @@
 
     <div class="navbar-buttons navbar-header pull-right ">
       <ul class="nav ace-nav">
-        <!-- user buttons such as messages, notifications and user menu -->
+        <li class="light-blue">
+        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+          <img class="nav-user-photo" src="/avatars/avatar.png" alt="Jason's Photo" />
+          <span class="user-info">
+            <small>Welcome,</small> Jason
+          </span>
+          <i class="ace-icon fa fa-caret-down"></i>
+        </a>
+        <ul class="user-menu dropdown-menu dropdown-menu-right dropdown-yellow dropdown-caret dropdown-close">
+          <li><a href="#"><i class="ace-icon fa fa-cog"></i> Settings</a></li>
+          <li class="divider"></li>
+          <li><a href="#"><i class="ace-icon fa fa-power-off"></i> Logout</a></li>
+        </ul>
+        </li>
       </ul>
     </div><!-- /.navbar-buttons -->
 
@@ -44,10 +57,85 @@
 
 <div class="main-container" id="main-container">
   <div class="sidebar responsive" id="sidebar">
-    <!-- sidebar goes here -->
-  </div>
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+
+      <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+        <button class="btn btn-success"><i class="ace-icon fa fa-signal"></i></button>
+        <button class="btn btn-info"><i class="ace-icon fa fa-pencil"></i></button>
+        <button class="btn btn-warning"><i class="ace-icon fa fa-users"></i></button>
+        <button class="btn btn-danger"><i class="ace-icon fa fa-cogs"></i></button>
+      </div>
+
+      <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+        <span class="btn btn-success"></span>
+        <span class="btn btn-info"></span>
+        <span class="btn btn-warning"></span>
+        <span class="btn btn-danger"></span>
+      </div>
+    </div>
+
+    <ul class="nav nav-list">
+
+      <li class="">
+      <a href="#">
+        <i class="menu-icon fa fa-picture-o"></i>
+        <span class="menu-text"> 找买家 </span>
+      </a>
+      <b class="arrow"></b>
+      </li>
+
+      <li class="">
+      <a href="#">
+        <i class="menu-icon fa fa-picture-o"></i>
+        <span class="menu-text"> 找标的 </span>
+      </a>
+      <b class="arrow"></b>
+      </li>
+
+      <li class="hsub open">
+      <a href="##help" class="dropdown-toggle">
+        <i class="menu-icon fa fa-desktop"></i>
+        <span class="menu-text"> 找机会 </span>
+
+        <b class="arrow fa fa-angle-down"></b>
+      </a>
+
+      <b class="arrow"></b>
+
+      <ul class="submenu nav-show" style="display: block;">
+        <li class="hsub">
+        <a href="#" class="dropdown-toggle">
+          <i class="menu-icon fa fa-caret-right"></i>
+          壳公司
+        </a>
+        </li>
+
+        <li class="">
+        <a href="typography.html">
+          <i class="menu-icon fa fa-caret-right"></i>
+          土豪买家
+        </a>
+
+        <b class="arrow"></b>
+        </li>
+
+        <li class="">
+        <a href="elements.html">
+          <i class="menu-icon fa fa-caret-right"></i>
+          急进买家
+        </a>
+
+        <b class="arrow"></b>
+        </li>
+      </ul>
+      </li>
+    </ul>
+  </div><!-- /.sidebar -->
 
   <div class="main-content">
+    <div id="breadcrumbs" class="breadcrumbs">
+      <%= yield(:breadcrumb) %>
+    </div>
 
     <div class="page-content">
       <div class="row">
