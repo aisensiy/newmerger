@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150106094307) do
+ActiveRecord::Schema.define(version: 20150106151840) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20150106094307) do
     t.text     "memo"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "buyer_id"
+    t.integer  "target_id"
   end
 
   create_table "buyers", force: true do |t|
@@ -94,6 +96,7 @@ ActiveRecord::Schema.define(version: 20150106094307) do
     t.float    "pb",                limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "industry_id"
   end
 
   create_table "industries", force: true do |t|
@@ -132,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150106094307) do
     t.boolean  "is_sold"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "industry_id"
   end
 
   create_table "users", force: true do |t|
