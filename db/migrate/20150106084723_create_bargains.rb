@@ -1,6 +1,6 @@
-class CreateBargins < ActiveRecord::Migration
+class CreateBargains < ActiveRecord::Migration
   def change
-    create_table :bargins do |t|
+    create_table :bargains do |t|
       t.string   "payment_type"
       t.string   "consultant"
       t.integer  "year"

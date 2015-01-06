@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150106094307) do
   add_index "active_admin_comments", ["namespace"], name: "index_active_admin_comments_on_namespace", using: :btree
   add_index "active_admin_comments", ["resource_type", "resource_id"], name: "index_active_admin_comments_on_resource_type_and_resource_id", using: :btree
 
-  create_table "bargins", force: true do |t|
+  create_table "bargains", force: true do |t|
     t.string   "payment_type"
     t.string   "consultant"
     t.integer  "year"
