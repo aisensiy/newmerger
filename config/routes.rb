@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   get 'mockup/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
