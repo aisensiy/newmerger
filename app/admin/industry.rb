@@ -14,5 +14,16 @@ ActiveAdmin.register Industry do
   #   permitted
   # end
 
+  index do
+    id_column
+    column :name
+    column :count_of_buyers do |industry|
+      industry.buyers.count
+    end
+    column :count_of_targets do |industry|
+      industry.targets.count
+    end
+    actions
+  end
 
 end
