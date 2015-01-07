@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107170004) do
+ActiveRecord::Schema.define(version: 20150107173159) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -104,7 +104,8 @@ ActiveRecord::Schema.define(version: 20150107170004) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_secondary", default: false
+    t.boolean  "is_secondary",  default: false
+    t.boolean  "is_deprecated", default: false
   end
 
   create_table "targets", force: true do |t|
