@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107121649) do
+ActiveRecord::Schema.define(version: 20150107152606) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20150107121649) do
     t.string   "stock_code"
     t.string   "company_name"
     t.string   "actual_controller"
-    t.float    "ssh_prop",          limit: 24
+    t.float    "ssh_prop",              limit: 24
     t.string   "owner_type"
     t.integer  "bargain_freq"
     t.date     "ipo_at"
@@ -81,28 +81,30 @@ ActiveRecord::Schema.define(version: 20150107121649) do
     t.text     "main_product"
     t.string   "main_product_type"
     t.string   "region"
-    t.float    "cash_reserve_2",    limit: 24
-    t.float    "cash_reserve_3",    limit: 24
-    t.float    "cash_reserve_1",    limit: 24
-    t.float    "growth_ratio_1",    limit: 24
-    t.float    "growth_ratio_2",    limit: 24
-    t.float    "growth_ratio_3",    limit: 24
-    t.float    "net_profit",        limit: 24
-    t.float    "roe",               limit: 24
+    t.float    "cash_reserve_2",        limit: 24
+    t.float    "cash_reserve_3",        limit: 24
+    t.float    "cash_reserve_1",        limit: 24
+    t.float    "growth_ratio_1",        limit: 24
+    t.float    "growth_ratio_2",        limit: 24
+    t.float    "growth_ratio_3",        limit: 24
+    t.float    "net_profit",            limit: 24
+    t.float    "roe",                   limit: 24
     t.string   "concept_sector"
     t.integer  "row_index"
-    t.float    "pe",                limit: 24
-    t.float    "market_value",      limit: 24
-    t.float    "pb",                limit: 24
+    t.float    "pe",                    limit: 24
+    t.float    "market_value",          limit: 24
+    t.float    "pb",                    limit: 24
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "industry_id"
+    t.integer  "secondary_industry_id"
   end
 
   create_table "industries", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_secondary"
   end
 
   create_table "targets", force: true do |t|
@@ -112,30 +114,31 @@ ActiveRecord::Schema.define(version: 20150107121649) do
     t.string   "contact"
     t.string   "telephone"
     t.string   "target_industry"
-    t.float    "target_income",       limit: 24
-    t.float    "net_profit",          limit: 24
-    t.float    "net_profit_t",        limit: 24
-    t.float    "net_profit_t_1",      limit: 24
-    t.float    "net_profit_t_2",      limit: 24
-    t.float    "net_profit_t_3",      limit: 24
-    t.float    "estimate_growth",     limit: 24
-    t.float    "estimate_net_profit", limit: 24
-    t.float    "expected_value",      limit: 24
-    t.float    "market_share",        limit: 24
+    t.float    "target_income",         limit: 24
+    t.float    "net_profit",            limit: 24
+    t.float    "net_profit_t",          limit: 24
+    t.float    "net_profit_t_1",        limit: 24
+    t.float    "net_profit_t_2",        limit: 24
+    t.float    "net_profit_t_3",        limit: 24
+    t.float    "estimate_growth",       limit: 24
+    t.float    "estimate_net_profit",   limit: 24
+    t.float    "expected_value",        limit: 24
+    t.float    "market_share",          limit: 24
     t.string   "pe_vc_holder"
-    t.float    "capital",             limit: 24
+    t.float    "capital",               limit: 24
     t.string   "garden"
-    t.float    "income_growth",       limit: 24
-    t.float    "market_value",        limit: 24
-    t.float    "net_asset",           limit: 24
-    t.float    "net_capital",         limit: 24
-    t.float    "net_profit_growth",   limit: 24
-    t.float    "stock_share",         limit: 24
-    t.float    "total_debt",          limit: 24
+    t.float    "income_growth",         limit: 24
+    t.float    "market_value",          limit: 24
+    t.float    "net_asset",             limit: 24
+    t.float    "net_capital",           limit: 24
+    t.float    "net_profit_growth",     limit: 24
+    t.float    "stock_share",           limit: 24
+    t.float    "total_debt",            limit: 24
     t.boolean  "is_sold"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "industry_id"
+    t.integer  "secondary_industry_id"
   end
 
   create_table "users", force: true do |t|

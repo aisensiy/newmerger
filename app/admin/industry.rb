@@ -23,6 +23,7 @@ ActiveAdmin.register Industry do
     column :count_of_targets do |industry|
       industry.targets.count
     end
+    column :is_secondary
     actions
   end
 
