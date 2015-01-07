@@ -14,5 +14,20 @@ ActiveAdmin.register Target do
   #   permitted
   # end
 
+  index do
+    id_column
+    column :stock_code
+    column :company_name
+    column :industry_obj, sortable: :industry_id do |buyer|
+      if buyer.industry_obj
+        link_to buyer.industry_obj.name, edit_admin_industry_path(buyer.industry_id)
+      else
+        ''
+      end
+    end
+    column :target_industry
+    column :is_sold
+    actions
+  end
 
 end
