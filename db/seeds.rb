@@ -81,3 +81,24 @@ Target.where(industry_id: nil).find_each do |target|
     target.save
   end
 end
+
+def target_industry_to_buyer_industry(from, to, is_secondary=false)
+  from_id = Industry.find_by(name: from, is_secondary: is_secondary).id
+  to_id = Industry.find_by(name: to, is_secondary: is_secondary).id
+
+  if is_secondary
+    Target.where(secondary_industry_id: from_id).update_all(secondary_industry_id: to_id)
+  else
+    Target.where(industry_id: from_id).update_all(industry_id: to_id)
+  end
+end
+
+target_industry_to_buyer_industry('采掘业', '采矿业')
+target_industry_to_buyer_industry('电力、煤气及水的生产和供应业', '电力、热力、燃气及水生产和供应业')
+target_industry_to_buyer_industry('信息技术业', '信息传输、软件和信息技术服务业')
+target_industry_to_buyer_industry('交通运输、仓储业', '交通运输、仓储和邮政业')
+target_industry_to_buyer_industry('金融、保险业', '金融业')
+target_industry_to_buyer_industry('金融保险业', '金融业')
+target_industry_to_buyer_industry('综合类', '综合')
+target_industry_to_buyer_industry('传播与文化产业', '文化、体育和娱乐业')
+target_industry_to_buyer_industry('批发和零售贸易', '批发和零售业')
