@@ -8,17 +8,26 @@
 
 require 'csv'
 
-User.delete_all
-User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+if User.count == 0
+  User.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password')
+end
 
-Bargain.delete_all
-bargain_rows = CSV.read('db/bargains.csv', headers: true)
-bargain_rows.each { |row| Bargain.create!(row.to_hash) }
+if Bargain.count == 0
+  bargain_rows = CSV.read('db/bargains.csv', headers: true)
+  bargain_rows.each { |row| Bargain.create!(row.to_hash) }
+end
 
-Buyer.delete_all
-buyer_rows = CSV.read('db/buyers.csv', headers: true)
-buyer_rows.each { |row| Buyer.create!(row.to_hash) }
+if Buyer.count == 0
+  buyer_rows = CSV.read('db/buyers.csv', headers: true)
+  buyer_rows.each { |row| Buyer.create!(row.to_hash) }
+end
 
-Target.delete_all
-target_rows = CSV.read('db/targets.csv', headers: true)
-target_rows.each { |row| Target.create(row.to_hash) }
+if Target.count == 0
+  target_rows = CSV.read('db/targets.csv', headers: true)
+  target_rows.each { |row| Target.create(row.to_hash) }
+end
+
+if Industry.count == 0
+  industry_rows = CSV.read('db/industries.csv', headers: true)
+  industry_rows.each { |row| Industry.create(row.to_hash) }
+end
