@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150107173159) do
+ActiveRecord::Schema.define(version: 20150108035047) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -98,6 +98,7 @@ ActiveRecord::Schema.define(version: 20150107173159) do
     t.datetime "updated_at"
     t.integer  "industry_id"
     t.integer  "secondary_industry_id"
+    t.integer  "bargains_count",                   default: 0
   end
 
   create_table "industries", force: true do |t|
