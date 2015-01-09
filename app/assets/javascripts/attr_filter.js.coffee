@@ -65,7 +65,7 @@ class AttrFilter
       d3.select(this).call(brush.extent(extent1))
 
       circle.classed("selected", (d) -> extent1[0] <= d && d <= extent1[1])
-      self.callback(extent1) if self.callback
+      self.callback.call(svg, extent1) if self.callback
       self.extent = extent1
       svg.select('text.title').text("#{self.attr_text} #{extent1[0]} - #{extent1[1]}")
 

@@ -1,0 +1,57 @@
+<div class="widget-box bargains" id="buyer_attr_widget">
+  <div class="widget-header">
+    <h4 class="widget-title smaller">买家指标</h4>
+  </div>
+  <div class="widget-body">
+    <div class="widget-main no-padding" id="">
+      <%= form_tag buyer_finder_show_results_path, remote: true do %>
+      <table id="buyer_attr_filter" class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="center">
+              <label class="position-relative">
+                <input type="checkbox" class="ace">
+                <span class="lbl"></span>
+              </label>
+            </th>
+            <th>指标名称</th>
+            <th>买家分布</th>
+            <th class="hidden-480">指标权重</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% attrs.each_with_index do |attr, idx| %>
+        <tr>
+          <td class="center">
+            <label class="position-relative">
+              <input type="checkbox" name="buyer_attrs[<%= attr %>]" class="ace">
+              <span class="lbl"></span>
+            </label>
+          </td>
+
+          <td>
+            <%= attr.to_s %>
+          </td>
+          <td class="attr-filter" id="<%= attr %>_filter">
+            <input type="hidden" name="buyer_attrs[<%= attr %>_min]" value="" class='hidden-min' />
+            <input type="hidden" name="buyer_attrs[<%= attr %>_max]" value="" class='hidden-max' />
+          </td>
+          <td>
+            <input type="text" value="1" />
+          </td>
+        </tr>
+        <% end -%>
+
+        </tbody>
+      </table>
+      <div class="form-actions center">
+        <button type="submit" class="btn btn-sm btn-success">
+          Submit
+          <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+        </button>
+      </div>
+      <% end -%>
+    </div>
+  </div><!-- end widget-body -->
+</div><!-- end widget box -->

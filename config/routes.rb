@@ -3,6 +3,11 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   get 'mockup/index'
 
+  get 'buyer_finder/index'
+  get 'buyer_finder/reference_bargains'
+  post 'buyer_finder/show_attrs'
+  post 'buyer_finder/show_results'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

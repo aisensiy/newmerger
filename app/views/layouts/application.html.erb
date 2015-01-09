@@ -139,12 +139,17 @@
     </div>
 
     <div class="page-content">
-      <div class="row">
-        <div class="col-xs-12">
-          <%= flash_messages %>
-          <%= yield %>
-        </div><!-- /.col -->
-      </div><!-- /.row -->
+      <div class="page-content-area">
+        <div class="page-header">
+          <%= yield :page_header %>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <%= flash_messages %>
+            <%= yield %>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div>
     </div><!-- /.page-content -->
   </div><!-- /.main-content -->
 
