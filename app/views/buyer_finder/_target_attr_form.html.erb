@@ -1,0 +1,43 @@
+<div class="widget-box target-index">
+  <div class="widget-header">
+    <h4 class="widget-title smaller">标的公司指标</h4>
+  </div>
+  <div class="widget-body">
+    <div class="widget-main no-padding">
+      <%= form_tag buyer_finder_show_attrs_path, remote: true do %>
+        <fieldset>
+          <div class="form-group">
+            <label for="">最近一年的净利润(万元)</label>
+            <br />
+            <input type="text" name="target_attrs[net_profit]" value="" />
+          </div>
+          <div class="form-group">
+            <label for="">预计增长率(%)</label>
+            <br />
+            <input type="text" name="" id="" value="" />
+          </div>
+          <div class="form-group">
+            <label for="">预计三年的净利润(万元)</label>
+            <br />
+            <input type="text" name="target_attrs[net_profit_t_1]" value="" class="input-small" placeholder="+1" />
+            <input type="text" name="target_attrs[net_profit_t_2]" value="" class="input-small" placeholder="+2" />
+            <input type="text" name="target_attrs[net_profit_t_2]" value="" class="input-small" placeholder="+3" />
+          </div>
+          <div class="form-group">
+            <label for="最近一年的收入">最近一年的收入(万元)</label>
+            <br />
+            <input type="text" name="target_attrs[target_income]" value="" />
+          </div>
+        </fieldset>
+
+        <div class="form-actions center">
+          <input type="hidden" name="target_attrs[target_industry]" id="target_industry_hidden" value="" />
+          <button type="submit" class="btn btn-sm btn-success">
+            Submit
+            <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

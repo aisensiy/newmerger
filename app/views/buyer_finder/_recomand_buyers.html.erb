@@ -1,0 +1,59 @@
+<div class="hr hr32 hr-dotted" id="pre_attrs_widget"></div>
+<div class="widget-box bargains" id="recommand_buyer_widget">
+  <div class="widget-header">
+    <h4 class="widget-title smaller">推荐的买家</h4>
+    <div class="widget-toolbar">
+      <a data-action="fullscreen" class="orange2" href="#"><i class="ace-icon fa fa-expand"></i></a>
+      <a data-action="collapse" href="#"><i class="ace-icon fa fa-chevron-up"></i></a>
+    </div>
+    <div class="widget-toolbar">
+      <button type="button" class="btn btn-xs btn-info" data-toggle="button">
+        <i class="ace-icon glyphicon glyphicon-plus"></i>
+        添加额外的买家
+      </button>
+    </div>
+  </div>
+  <div class="widget-body">
+    <div class="widget-main no-padding" id="recommand_buyer_container">
+      <table id="buyer_attr_filter" class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr>
+            <th class="center">
+              <label class="position-relative">
+                <input type="checkbox" class="ace">
+                <span class="lbl"></span>
+              </label>
+            </th>
+            <th>买家名称</th>
+            <th>行业</th>
+            <% buyer_attrs.each do |attr, attr_name| %>
+            <th><%= attr_name %></th>
+            <% end -%>
+          </tr>
+        </thead>
+
+        <tbody>
+        <% buyers.each do |buyer| %>
+        <tr>
+          <td class="center">
+            <label class="position-relative">
+              <input type="checkbox" name="" class="ace">
+              <span class="lbl"></span>
+            </label>
+          </td>
+          <td>
+            <%= buyer.company_name %>
+          </td>
+          <td><%= buyer.industry_obj.name %></td>
+          <% buyer_attrs.each do |attr, attr_name| %>
+          <td>
+            <%= buyer[attr] %>
+          </td>
+          <% end -%>
+        <tr />
+        <% end -%>
+        </tbody>
+      </table>
+    </div>
+  </div><!-- end widget-body -->
+</div><!-- end widget box -->
