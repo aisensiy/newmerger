@@ -37,8 +37,12 @@ class BuyerFinderController < ApplicationController
 
   def show_results
     buyer_attrs = params[:buyer_attrs]
+    buyer_attr_weights = params[:buyer_attr_weights]
     # get attr checked
     @buyer_attrs = buyer_attrs.select { |item, value| value == 'on' }.keys
+    @buyer_attr_weights = @buyer_attrs.map do |attr|
+      buyer_attr_weights[attr].to_i
+    end
     p @buyer_attrs
     # get min max where attr checked
     queries = @buyer_attrs.map do |attr|
@@ -59,6 +63,7 @@ class BuyerFinderController < ApplicationController
                             .where(queries.join(' and '))
     @result = Buyer.similar(candidate_buyers,
                             similar_buyers,
-                            @buyer_attrs).map { |v| v[0] }
+                            @buyer_attrs,
+                            @buyer_attr_weights).map { |v| v[0] }
   end
 end

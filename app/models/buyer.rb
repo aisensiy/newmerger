@@ -6,7 +6,7 @@ class Buyer < ActiveRecord::Base
   belongs_to :industry_obj, class_name: 'Industry', foreign_key: 'industry_id'
   belongs_to :secondary_industry, class_name: 'Industry'
 
-  def self.similar(candidates, similar_buyers, attrs, k=10)
+  def self.similar(candidates, similar_buyers, attrs, attr_weights, k=10)
     attrs = attrs.map { |attr| attr.to_sym }
     vectors = similar_buyers.map do |target|
       target.attributes.select { |k, v| attrs.include? k.to_sym }.values.map do |v|
@@ -28,7 +28,7 @@ class Buyer < ActiveRecord::Base
     end
 
     matrix = [center] + candidate_matrix
-    normalized_matrix = transpose(transpose(matrix).map { |v| normalize(v) })
+    normalized_matrix = transpose(transpose(matrix).map { |v| normalize(v, attr_weights) })
 
     distances = (1..candidates.size).map do |i|
       [cal_distance(normalized_matrix[0], normalized_matrix[i]), candidates[i - 1]]

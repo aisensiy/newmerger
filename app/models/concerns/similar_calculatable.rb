@@ -13,12 +13,18 @@ module SimilarCalculatable extend ActiveSupport::Concern
     newmatrix
   end
 
-  def normalize(vector)
+  def normalize(vector, weights=nil)
     min_value = vector.min
     range = vector.max - min_value
-    vector.map do |v|
+    vector = vector.map do |v|
       1.0 * (v - min_value) / range
     end
+    unless weights.nil?
+      vector = vector.map.with_index do |v, i|
+        v * weights[i].to_f
+      end
+    end
+    vector
   end
 
   def cal_distance(a, b)
