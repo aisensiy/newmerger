@@ -21,7 +21,7 @@
         </thead>
 
         <tbody>
-        <% attrs.each_with_index do |attr, idx| %>
+        <% attrs.each do |attr, attr_text| %>
         <tr>
           <td class="center">
             <label class="position-relative">
@@ -31,7 +31,7 @@
           </td>
 
           <td>
-            <%= attr.to_s %>
+            <%= attr_text %>
           </td>
           <td class="attr-filter" id="<%= attr %>_filter">
             <input type="hidden" name="buyer_attrs[<%= attr %>_min]" value="" class='hidden-min' />

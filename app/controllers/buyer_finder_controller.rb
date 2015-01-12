@@ -16,7 +16,8 @@ class BuyerFinderController < ApplicationController
   end
 
   def show_attrs
-    @buyer_attrs = [:market_value, :pe, :growth_ratio_1, :growth_ratio_2, :growth_ratio_3, :roe, :ssh_prop, :cash_reserve_1, :cash_reserve_2, :cash_reserve_3]
+    @buyer_attrs = APP_CONFIG['buyer_search_attrs']
+    p @buyer_attrs
     @target_attrs = params[:target_attrs]
     candidate_targets = Target.where(is_sold: true,
                                      industry_id: @target_attrs[:target_industry])
@@ -27,8 +28,8 @@ class BuyerFinderController < ApplicationController
 
     similar_buyers = similar_targets.map(&:bargains).flatten.map(&:buyer)
     session[:similar_buyer_ids] = similar_buyers.map(&:id)
-    @attr_matrix = @buyer_attrs.map { |buyer_attr| [] }
-    @buyer_attrs.each_with_index do |buyer_attr, idx|
+    @attr_matrix = @buyer_attrs.map { |buyer_attr, attr_value| [] }
+    @buyer_attrs.keys.each.with_index do |buyer_attr, idx|
       similar_buyers.each do |candidate_buyer|
         @attr_matrix[idx] << candidate_buyer[buyer_attr]
       end
@@ -36,16 +37,19 @@ class BuyerFinderController < ApplicationController
   end
 
   def show_results
+    @buyer_attrs = APP_CONFIG['buyer_search_attrs']
     buyer_attrs = params[:buyer_attrs]
     buyer_attr_weights = params[:buyer_attr_weights]
     # get attr checked
-    @buyer_attrs = buyer_attrs.select { |item, value| value == 'on' }.keys
-    @buyer_attr_weights = @buyer_attrs.map do |attr|
+    checked_buyer_attrs = buyer_attrs.select { |item, value| value == 'on' }.keys
+    @buyer_attrs = APP_CONFIG['buyer_search_attrs'].select do |key, value|
+      checked_buyer_attrs.include? key
+    end
+    @buyer_attr_weights = @buyer_attrs.map do |attr, attr_name|
       buyer_attr_weights[attr].to_i
     end
-    p @buyer_attrs
     # get min max where attr checked
-    queries = @buyer_attrs.map do |attr|
+    queries = @buyer_attrs.map do |attr, attr_name|
       attr_min = "#{attr}_min"
       attr_max = "#{attr}_max"
       if buyer_attrs[attr_min].empty? || buyer_attrs[attr_max].empty?
@@ -63,7 +67,7 @@ class BuyerFinderController < ApplicationController
                             .where(queries.join(' and '))
     @result = Buyer.similar(candidate_buyers,
                             similar_buyers,
-                            @buyer_attrs,
+                            @buyer_attrs.keys,
                             @buyer_attr_weights).map { |v| v[0] }
   end
 end

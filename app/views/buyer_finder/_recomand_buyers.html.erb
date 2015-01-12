@@ -26,7 +26,7 @@
             </th>
             <th>买家名称</th>
             <th>行业</th>
-            <% buyer_attrs.each do |attr_name| %>
+            <% buyer_attrs.each do |attr, attr_name| %>
             <th><%= attr_name %></th>
             <% end -%>
           </tr>
@@ -45,7 +45,7 @@
             <%= buyer.company_name %>
           </td>
           <td><%= buyer.industry_obj.name %></td>
-          <% buyer_attrs.each do |attr| %>
+          <% buyer_attrs.each do |attr, attr_name| %>
           <td>
             <%= buyer[attr] %>
           </td>

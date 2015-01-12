@@ -5,7 +5,7 @@ if ($(widget_id).size()) {
 $('<%= j render 'buyer_finder/buyer_attrs', attrs: @buyer_attrs %>').insertAfter($('#pre_attrs_widget'));
 
 var matrix = <%= @attr_matrix.to_json %>;
-var attrs = <%=raw @buyer_attrs.map { |attr| attr.to_s } %>;
+var attrs = <%=raw @buyer_attrs.values.map { |attr| attr.to_s } %>;
 $(widget_id).find('td.attr-filter').each(function(index, elem) {
   values = _.filter(matrix[index], function(value) { return value != null; });
   new AttrFilter("#" + elem.id, attrs[index], attrs[index], function(extent) {
