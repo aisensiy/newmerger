@@ -7,6 +7,7 @@ class Buyer < ActiveRecord::Base
   belongs_to :secondary_industry, class_name: 'Industry'
 
   def self.similar(candidates, similar_buyers, attrs, k=10)
+    attrs = attrs.map { |attr| attr.to_sym }
     vectors = similar_buyers.map do |target|
       target.attributes.select { |k, v| attrs.include? k.to_sym }.values.map do |v|
         v.nil? ? 0 : v
