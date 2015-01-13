@@ -1,0 +1,2 @@
+class TargetFinderController < ApplicationController
+end
