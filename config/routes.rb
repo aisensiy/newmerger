@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   post 'target_finder/show_results'
 
   get 'chance_finder/get_shell_companies'
+  get 'chance_finder/get_aggressive_buyers'
+  get 'chance_finder/get_rich_buyers'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
