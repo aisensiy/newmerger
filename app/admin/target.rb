@@ -27,6 +27,12 @@ ActiveAdmin.register Target do
     end
     column :target_industry
     column :is_sold
+    column :net_profit
+    column :estimate_growth
+    column :net_profit_t_1
+    column :net_profit_t_2
+    column :net_profit_t_3
+    column :target_income
     actions
   end
 

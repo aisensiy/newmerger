@@ -1,0 +1,50 @@
+<div class="widget-box target-index">
+  <div class="widget-header">
+    <h4 class="widget-title smaller">买方公司指标</h4>
+  </div>
+  <div class="widget-body">
+    <div class="widget-main no-padding">
+      <%= form_tag target_finder_show_attrs_path, remote: true do %>
+        <fieldset>
+          <div class="form-group">
+            <label for="">公司市值(万元)</label>
+            <br />
+            <input type="text" name="buyer_attrs[market_value]" value="" />
+          </div>
+          <div class="form-group">
+            <label for="">最近三年业绩增长率(%)</label>
+            <br />
+            <input type="text" name="buyer_attrs[growth_ratio_1]" value="" class="input-small" placeholder="-1" />
+            <input type="text" name="buyer_attrs[growth_ratio_2]" value="" class="input-small" placeholder="-2" />
+            <input type="text" name="buyer_attrs[growth_ratio_2]" value="" class="input-small" placeholder="-3" />
+          </div>
+          <div class="form-group">
+            <label for="">净资产收益率(%)</label>
+            <br />
+            <input type="text" name="buyer_attrs[roe]" id="" value="" />
+          </div>
+          <div class="form-group">
+            <label for="">大股东持股比例(%)</label>
+            <br />
+            <input type="text" name="buyer_attrs[ssh_prop]" value="" />
+          </div>
+          <div class="form-group">
+            <label for="">最近三年货币保有量(万元)</label>
+            <br />
+            <input type="text" name="buyer_attrs[cash_reserve_1]" value="" class="input-small" placeholder="-1" />
+            <input type="text" name="buyer_attrs[cash_reserve_2]" value="" class="input-small" placeholder="-2" />
+            <input type="text" name="buyer_attrs[cash_reserve_2]" value="" class="input-small" placeholder="-3" />
+          </div>
+        </fieldset>
+
+        <div class="form-actions center">
+          <input type="hidden" name="buyer_attrs[buyer_industry]" id="buyer_industry_hidden" value="" />
+          <button type="submit" class="btn btn-sm btn-success">
+            Submit
+            <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+          </button>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
