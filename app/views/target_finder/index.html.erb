@@ -8,7 +8,7 @@
       <%= select_tag(:industry_id,
       options_for_select([''] + @industries.map { |ind| [ind.name, ind.id] }),
       class: '',
-      id: 'target_industry') %>
+      id: 'buyer_industry') %>
     </div>
     <%= render 'target_finder/buyer_attr_form' %>
 
@@ -19,7 +19,7 @@
         <h4 class="widget-title smaller">参考的交易</h4>
       </div>
       <div class="widget-body">
-        <div class="widget-main no-padding" id="reference_bargains_by_target_industry_container">
+        <div class="widget-main no-padding" id="reference_bargains_by_buyer_industry_container">
         </div>
       </div><!-- end widget-body -->
     </div><!-- end widget box -->

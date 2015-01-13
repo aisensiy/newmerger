@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post 'buyer_finder/show_results'
 
   get 'target_finder/index'
+  get 'target_finder/reference_bargains'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
