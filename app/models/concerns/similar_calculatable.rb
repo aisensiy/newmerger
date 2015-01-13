@@ -17,7 +17,7 @@ module SimilarCalculatable extend ActiveSupport::Concern
     min_value = vector.min
     range = vector.max - min_value
     vector = vector.map do |v|
-      1.0 * (v - min_value) / range
+      range == 0 ? 1.0 : 1.0 * (v - min_value) / range
     end
     unless weights.nil?
       vector = vector.map.with_index do |v, i|

@@ -35,6 +35,37 @@ class TargetFinderController < ApplicationController
   end
 
   def show_results
-
+    @target_attrs = APP_CONFIG['target_search_attrs']
+    target_attrs = params[:target_attrs]
+    target_attr_weights = params[:target_attr_weights]
+    # get attr checked
+    checked_target_attrs = target_attrs.select { |item, value| value == 'on' }.keys
+    @target_attrs = APP_CONFIG['target_search_attrs'].select do |key, value|
+      checked_target_attrs.include? key
+    end
+    @target_attr_weights = @target_attrs.map do |attr, attr_name|
+      target_attr_weights[attr].to_i
+    end
+    # get min max where attr checked
+    queries = @target_attrs.map do |attr, attr_name|
+      attr_min = "#{attr}_min"
+      attr_max = "#{attr}_max"
+      if target_attrs[attr_min].empty? || target_attrs[attr_max].empty?
+        nil
+      else
+        "#{attr} >= #{target_attrs[attr_min]} " +
+        "and #{attr} <= #{target_attrs[attr_max]}"
+      end
+    end.select {|query| !query.nil? }
+    # retrieve simliar targets
+    similar_targets = Target.find(session[:similar_target_ids])
+    candidate_targets = Target.where('industry_id in (?) and id not in (?)',
+                                     similar_targets.map(&:industry_id).uniq,
+                                     similar_targets.map(&:id))
+                              .where(queries.join(' and '))
+    @result = Target.similar(candidate_targets,
+                             similar_targets,
+                             @target_attrs.keys,
+                             @target_attr_weights).map { |v| v[0] }
   end
 end

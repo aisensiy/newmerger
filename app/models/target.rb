@@ -5,7 +5,7 @@ class Target < ActiveRecord::Base
   belongs_to :secondary_industry, class_name: 'Industry'
   has_many :bargains
 
-  def self.similar(candidates, similar_targets, attrs, k=10)
+  def self.similar(candidates, similar_targets, attrs, attr_weights, k=10)
     vectors = similar_targets.map do |target|
       target.attributes.select { |k, v| attrs.include? k }.values.map do |v|
         v.nil? ? 0 : v
@@ -24,7 +24,7 @@ class Target < ActiveRecord::Base
     end
 
     matrix = [center] + candidate_matrix
-    normalized_matrix = transpose(transpose(matrix).map { |v| normalize(v) })
+    normalized_matrix = transpose(transpose(matrix).map { |v| normalize(v, attr_weights) })
 
     distances = (1..candidates.size).map do |i|
       [cal_distance(normalized_matrix[0], normalized_matrix[i]), candidates[i - 1]]
