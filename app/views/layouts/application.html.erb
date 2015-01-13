@@ -78,18 +78,18 @@
     <ul class="nav nav-list">
 
       <li class="">
-      <a href="#">
+      <%= link_to buyer_finder_index_path do %>
         <i class="menu-icon fa fa-picture-o"></i>
         <span class="menu-text"> 找买家 </span>
-      </a>
+      <% end -%>
       <b class="arrow"></b>
       </li>
 
       <li class="">
-      <a href="#">
+      <%= link_to target_finder_index_path do %>
         <i class="menu-icon fa fa-picture-o"></i>
         <span class="menu-text"> 找标的 </span>
-      </a>
+      <% end -%>
       <b class="arrow"></b>
       </li>
 
@@ -97,7 +97,6 @@
       <a href="##help" class="dropdown-toggle">
         <i class="menu-icon fa fa-desktop"></i>
         <span class="menu-text"> 找机会 </span>
-
         <b class="arrow fa fa-angle-down"></b>
       </a>
 
@@ -105,26 +104,26 @@
 
       <ul class="submenu nav-show" style="display: block;">
         <li class="hsub">
-        <a href="#" class="dropdown-toggle">
+        <%= link_to chance_finder_get_shell_companies_path, class: '' do %>
           <i class="menu-icon fa fa-caret-right"></i>
           壳公司
-        </a>
+        <% end -%>
         </li>
 
         <li class="">
-        <a href="typography.html">
+        <%= link_to chance_finder_get_rich_buyers_path do %>
           <i class="menu-icon fa fa-caret-right"></i>
           土豪买家
-        </a>
+        <% end -%>
 
         <b class="arrow"></b>
         </li>
 
         <li class="">
-        <a href="elements.html">
+        <%= link_to chance_finder_get_aggressive_buyers_path do %>
           <i class="menu-icon fa fa-caret-right"></i>
           急进买家
-        </a>
+        <% end -%>
 
         <b class="arrow"></b>
         </li>
