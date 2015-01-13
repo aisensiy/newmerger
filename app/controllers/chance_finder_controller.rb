@@ -1,0 +1,2 @@
+class ChanceFinderController < ApplicationController
+end
