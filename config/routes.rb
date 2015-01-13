@@ -10,6 +10,8 @@ Rails.application.routes.draw do
 
   get 'target_finder/index'
   get 'target_finder/reference_bargains'
+  post 'target_finder/show_attrs'
+  post 'target_finder/show_results'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

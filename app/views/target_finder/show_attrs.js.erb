@@ -1,0 +1,16 @@
+var widget_id = '#target_attr_widget';
+if ($(widget_id).size()) {
+  $(widget_id).remove();
+}
+$('<%= j render 'target_finder/target_attrs', attrs: @target_attrs %>').insertAfter($('#pre_attrs_widget'));
+
+var matrix = <%= @attr_matrix.to_json %>;
+var attrs = <%=raw @target_attrs.values.map { |attr| attr.to_s } %>;
+$(widget_id).find('td.attr-filter').each(function(index, elem) {
+  values = _.filter(matrix[index], function(value) { return value != null; });
+  new AttrFilter("#" + elem.id, attrs[index], attrs[index], function(extent) {
+    $(this[0]).closest('td').find('.hidden-min').val(extent[0]);
+    $(this[0]).closest('td').find('.hidden-max').val(extent[1]);
+  }).build(values);
+});
+
