@@ -3,3 +3,8 @@ if ($(recomand_targets_widget_id).size()) {
   $(recomand_targets_widget_id).remove();
 }
 $('<%= j render 'recomand_targets', target_attrs: @target_attrs, targets: @result %>').insertAfter('#pre_results');
+setTimeout(function() {
+  $('#recommand_target_widget table').tablesorter({
+    headers : { 0: { sorter: false } }
+  });
+}, 50);

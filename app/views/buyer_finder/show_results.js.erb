@@ -3,3 +3,8 @@ if ($(recomand_buyers_widget_id).size()) {
   $(recomand_buyers_widget_id).remove();
 }
 $('<%= j render 'recomand_buyers', buyer_attrs: @buyer_attrs, buyers: @result %>').insertAfter("#pre_results")
+setTimeout(function() {
+  $('#recommand_buyer_widget table').tablesorter({
+    headers : { 0: { sorter: false } }
+  });
+}, 50);
