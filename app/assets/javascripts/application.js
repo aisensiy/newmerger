@@ -17,6 +17,7 @@
 //= require ace.min
 //= require d3.min
 //= require underscore-min
+//= require jquery.tablesorter
 //= require attr_filter
 //= require buyer_finder
 //= require target_finder
