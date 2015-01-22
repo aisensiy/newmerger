@@ -41,7 +41,6 @@ class BuyerFinderController < ApplicationController
   end
 
   def show_results
-    @buyer_attrs = APP_CONFIG['buyer_search_attrs']
     buyer_attrs = params[:buyer_attrs]
     buyer_attr_weights = params[:buyer_attr_weights]
     # get attr checked
@@ -50,8 +49,8 @@ class BuyerFinderController < ApplicationController
       checked_buyer_attrs.include? key
     end
     @buyer_attr_weights = @buyer_attrs.map do |attr, attr_name|
-      buyer_attr_weights[attr].to_i
-    end
+      { attr => buyer_attr_weights[attr].to_i }
+    end.reduce(:merge)
     # get min max where attr checked
     queries = @buyer_attrs.map do |attr, attr_name|
       attr_min = "#{attr}_min"

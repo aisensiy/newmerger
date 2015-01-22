@@ -8,13 +8,13 @@ class Buyer < ActiveRecord::Base
 
   def self.similar(candidates, similar_buyers, attrs, attr_weights, k=10)
     attrs = attrs.map { |attr| attr.to_sym }
+    attr_weights = attr_weights.values
     vectors = similar_buyers.map do |target|
-      target.attributes.select { |k, v| attrs.include? k.to_sym }.values.map do |v|
-        v.nil? ? 0 : v
+      attrs.map do |attr|
+        val = target[attr]
+        val.nil? ? 0 : val
       end
     end
-
-    p vectors
 
     center = attrs.size.times.map do |i|
       sum = 1.0 * vectors.size.times.map { |j| vectors[j][i] }.reduce(&:+)
@@ -22,13 +22,14 @@ class Buyer < ActiveRecord::Base
     end
 
     candidate_matrix = candidates.map do |candidate|
-      candidate.attributes.select { |k, v| attrs.include? k.to_sym }.values.map do |v|
-        v.nil? ? 0 : v
+      attrs.map do |attr|
+        val = candidate[attr]
+        val.nil? ? 0 : val
       end
     end
 
     matrix = [center] + candidate_matrix
-    normalized_matrix = transpose(transpose(matrix).map { |v| normalize(v, attr_weights) })
+    normalized_matrix = transpose(transpose(matrix).map.with_index { |v, i| normalize(v, attr_weights[i]) })
 
     distances = (1..candidates.size).map do |i|
       [cal_distance(normalized_matrix[0], normalized_matrix[i]), candidates[i - 1]]

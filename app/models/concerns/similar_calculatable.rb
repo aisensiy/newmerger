@@ -13,15 +13,15 @@ module SimilarCalculatable extend ActiveSupport::Concern
     newmatrix
   end
 
-  def normalize(vector, weights=nil)
+  def normalize(vector, weight=nil)
     min_value = vector.min
     range = vector.max - min_value
     vector = vector.map do |v|
       range == 0 ? 1.0 : 1.0 * (v - min_value) / range
     end
-    unless weights.nil?
-      vector = vector.map.with_index do |v, i|
-        v * weights[i].to_f
+    unless weight.nil?
+      vector = vector.map do |v|
+        v * weight.to_f
       end
     end
     vector
