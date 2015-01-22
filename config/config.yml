@@ -37,7 +37,7 @@ target:
 
 target_search_attrs:
   net_profit: 最近一年的净利润(万元)
-  estimate_growth: 预计增长率(%)
+  income_growth: 预计增长率(%)
   net_profit_t_1: T+1的净利润(万元)
   net_profit_t_2: T+2的净利润(万元)
   net_profit_t_3: T+3的净利润(万元)
