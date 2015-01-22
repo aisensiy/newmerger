@@ -19,6 +19,13 @@
  */
 
 .widget-box.bargains .widget-body {
-  height: 390px;
   overflow: auto;
+}
+
+#target-finder-bargains .widget-body {
+  height: 464px;
+}
+
+#buyer-finder-bargains .widget-body {
+  height: 390px;
 }
