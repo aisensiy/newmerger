@@ -18,3 +18,7 @@
  *= require attr_filter
  */
 
+.widget-box.bargains .widget-body {
+  height: 390px;
+  overflow: auto;
+}
