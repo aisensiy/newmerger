@@ -11,13 +11,11 @@ class BuyerFinderController < ApplicationController
     industry_id = params[:industry_id]
     @bargains = Target.where(industry_id: industry_id)
       .includes(bargains: [:buyer, :target]).limit(10).map(&:bargains).flatten
-    p @bargains
     render 'reference_bargains', layout: false, content_type: 'text/html'
   end
 
   def show_attrs
     @buyer_attrs = APP_CONFIG['buyer_search_attrs']
-    p @buyer_attrs
     @target_attrs = params[:target_attrs]
     candidate_targets = Target.where(is_sold: true,
                                      industry_id: @target_attrs[:target_industry])
@@ -27,11 +25,17 @@ class BuyerFinderController < ApplicationController
     similar_targets = Target.similar_with_index(candidate_targets, target_attrs).map { |v| v[0] }
 
     similar_buyers = similar_targets.map(&:bargains).flatten.map(&:buyer)
+    candidate_buyers = Buyer.where('industry_id in (?) and id not in (?)',
+                                   similar_buyers.map(&:industry_id).uniq,
+                                   similar_buyers.map(&:id))
     session[:similar_buyer_ids] = similar_buyers.map(&:id)
     @attr_matrix = @buyer_attrs.map { |buyer_attr, attr_value| [] }
     @buyer_attrs.keys.each.with_index do |buyer_attr, idx|
       similar_buyers.each do |candidate_buyer|
-        @attr_matrix[idx] << candidate_buyer[buyer_attr]
+        @attr_matrix[idx] << [candidate_buyer[buyer_attr], 'special']
+      end
+      candidate_buyers.each do |buyer|
+        @attr_matrix[idx] << [buyer[buyer_attr], 'normal']
       end
     end
   end

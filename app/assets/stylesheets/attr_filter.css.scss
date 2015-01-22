@@ -4,6 +4,12 @@ svg {
 
 circle {
   -webkit-transition: fill-opacity 250ms linear;
+  &.speical {
+    stroke: #00f;
+    fill: blue;
+    -webkit-transition: none;
+    fill-opacity: 1;
+  }
 }
 
 .selecting circle {
@@ -12,6 +18,12 @@ circle {
 
 .selecting circle.selected {
   stroke: #f00;
+  &.special {
+    stroke: #00f;
+    fill: blue;
+    -webkit-transition: none;
+    fill-opacity: 1;
+  }
 }
 
 .resize path {

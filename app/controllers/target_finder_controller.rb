@@ -30,10 +30,16 @@ class TargetFinderController < ApplicationController
 
     similar_targets = similar_buyers.map(&:bargains).flatten.map(&:target)
     session[:similar_target_ids] = similar_targets.map(&:id)
+    candidate_targets = Target.where('industry_id in (?) and id not in (?)',
+                                     similar_targets.map(&:industry_id).uniq,
+                                     similar_targets.map(&:id))
     @attr_matrix = @target_attrs.map { |target_attr, attr_value| [] }
     @target_attrs.keys.each.with_index do |target_attr, idx|
+      candidate_targets.each do |candidate_target|
+        @attr_matrix[idx] << [candidate_target[target_attr], 'normal']
+      end
       similar_targets.each do |candidate_target|
-        @attr_matrix[idx] << candidate_target[target_attr]
+        @attr_matrix[idx] << [candidate_target[target_attr], 'special']
       end
     end
   end
