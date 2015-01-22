@@ -65,9 +65,8 @@ class BuyerFinderController < ApplicationController
     end.select {|query| !query.nil? }
     # retrieve simliar buyers
     similar_buyers = Buyer.find(session[:similar_buyer_ids])
-    candidate_buyers = Buyer.where('industry_id in (?) and id not in (?)',
-                                   similar_buyers.map(&:industry_id).uniq,
-                                   similar_buyers.map(&:id))
+    candidate_buyers = Buyer.where('industry_id in (?)',
+                                   similar_buyers.map(&:industry_id).uniq)
                             .where(queries.join(' and '))
     @result = Buyer.similar(candidate_buyers,
                             similar_buyers,
