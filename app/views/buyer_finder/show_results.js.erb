@@ -1,6 +1,5 @@
 var recomand_buyers_widget_id = '#recommand_buyer_widget';
 if ($(recomand_buyers_widget_id).size()) {
-  $(recomand_buyers_widget_id).prev('div.hr').remove();
   $(recomand_buyers_widget_id).remove();
 }
 $('<%= j render 'recomand_buyers', buyer_attrs: @buyer_attrs, buyers: @result %>').insertAfter("#pre_results")

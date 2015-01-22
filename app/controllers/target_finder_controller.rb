@@ -45,7 +45,6 @@ class TargetFinderController < ApplicationController
   end
 
   def show_results
-    @target_attrs = APP_CONFIG['target_search_attrs']
     target_attrs = params[:target_attrs]
     target_attr_weights = params[:target_attr_weights]
     # get attr checked
@@ -54,8 +53,8 @@ class TargetFinderController < ApplicationController
       checked_target_attrs.include? key
     end
     @target_attr_weights = @target_attrs.map do |attr, attr_name|
-      target_attr_weights[attr].to_i
-    end
+      { attr => target_attr_weights[attr].to_i }
+    end.reduce(:merge)
     # get min max where attr checked
     queries = @target_attrs.map do |attr, attr_name|
       attr_min = "#{attr}_min"
@@ -76,6 +75,7 @@ class TargetFinderController < ApplicationController
     @result = Target.similar(candidate_targets,
                              similar_targets,
                              @target_attrs.keys,
-                             @target_attr_weights).map { |v| v[0] }
+                             @target_attr_weights,
+                             k=20).map { |v| v[0] }
   end
 end

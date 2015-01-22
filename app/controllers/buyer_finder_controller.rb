@@ -41,7 +41,6 @@ class BuyerFinderController < ApplicationController
   end
 
   def show_results
-    @buyer_attrs = APP_CONFIG['buyer_search_attrs']
     buyer_attrs = params[:buyer_attrs]
     buyer_attr_weights = params[:buyer_attr_weights]
     # get attr checked
@@ -50,8 +49,8 @@ class BuyerFinderController < ApplicationController
       checked_buyer_attrs.include? key
     end
     @buyer_attr_weights = @buyer_attrs.map do |attr, attr_name|
-      buyer_attr_weights[attr].to_i
-    end
+      { attr => buyer_attr_weights[attr].to_i }
+    end.reduce(:merge)
     # get min max where attr checked
     queries = @buyer_attrs.map do |attr, attr_name|
       attr_min = "#{attr}_min"
@@ -65,13 +64,13 @@ class BuyerFinderController < ApplicationController
     end.select {|query| !query.nil? }
     # retrieve simliar buyers
     similar_buyers = Buyer.find(session[:similar_buyer_ids])
-    candidate_buyers = Buyer.where('industry_id in (?) and id not in (?)',
-                                   similar_buyers.map(&:industry_id).uniq,
-                                   similar_buyers.map(&:id))
+    candidate_buyers = Buyer.where('industry_id in (?)',
+                                   similar_buyers.map(&:industry_id).uniq)
                             .where(queries.join(' and '))
     @result = Buyer.similar(candidate_buyers,
                             similar_buyers,
                             @buyer_attrs.keys,
-                            @buyer_attr_weights).map { |v| v[0] }
+                            @buyer_attr_weights,
+                            k=20).map { |v| v[0] }
   end
 end

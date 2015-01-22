@@ -6,9 +6,12 @@ class Target < ActiveRecord::Base
   has_many :bargains
 
   def self.similar(candidates, similar_targets, attrs, attr_weights, k=10)
+    attrs = attrs.map { |attr| attr.to_sym }
+    attr_weights = attr_weights.values
     vectors = similar_targets.map do |target|
-      target.attributes.select { |k, v| attrs.include? k }.values.map do |v|
-        v.nil? ? 0 : v
+      attrs.map do |attr|
+        val = target[attr]
+        val.nil? ? 0 : val
       end
     end
 
@@ -18,13 +21,14 @@ class Target < ActiveRecord::Base
     end
 
     candidate_matrix = candidates.map do |candidate|
-      candidate.attributes.select { |k, v| attrs.include? k }.values.map do |v|
-        v.nil? ? 0 : v
+      attrs.map do |attr|
+        val = candidate[attr]
+        val.nil? ? 0 : val
       end
     end
 
     matrix = [center] + candidate_matrix
-    normalized_matrix = transpose(transpose(matrix).map { |v| normalize(v, attr_weights) })
+    normalized_matrix = transpose(transpose(matrix).map.with_index { |v, i| normalize(v, attr_weights[i]) })
 
     distances = (1..candidates.size).map do |i|
       [cal_distance(normalized_matrix[0], normalized_matrix[i]), candidates[i - 1]]
