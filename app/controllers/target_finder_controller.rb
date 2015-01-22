@@ -76,6 +76,7 @@ class TargetFinderController < ApplicationController
     @result = Target.similar(candidate_targets,
                              similar_targets,
                              @target_attrs.keys,
-                             @target_attr_weights).map { |v| v[0] }
+                             @target_attr_weights,
+                             k=20).map { |v| v[0] }
   end
 end

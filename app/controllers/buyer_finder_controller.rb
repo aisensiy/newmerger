@@ -71,6 +71,7 @@ class BuyerFinderController < ApplicationController
     @result = Buyer.similar(candidate_buyers,
                             similar_buyers,
                             @buyer_attrs.keys,
-                            @buyer_attr_weights).map { |v| v[0] }
+                            @buyer_attr_weights,
+                            k=20).map { |v| v[0] }
   end
 end
