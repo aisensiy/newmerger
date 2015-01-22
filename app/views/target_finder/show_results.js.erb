@@ -3,4 +3,4 @@ if ($(recomand_targets_widget_id).size()) {
   $(recomand_targets_widget_id).prev('div.hr').remove();
   $(recomand_targets_widget_id).remove();
 }
-$('<%= j render 'recomand_targets', target_attrs: @target_attrs, targets: @result %>').appendTo('.col-xs-8');
+$('<%= j render 'recomand_targets', target_attrs: @target_attrs, targets: @result %>').insertAfter('#pre_results');
