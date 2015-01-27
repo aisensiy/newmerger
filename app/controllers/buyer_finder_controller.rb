@@ -29,13 +29,18 @@ class BuyerFinderController < ApplicationController
                                    similar_buyers.map(&:industry_id).uniq,
                                    similar_buyers.map(&:id))
     session[:similar_buyer_ids] = similar_buyers.map(&:id)
-    @attr_matrix = @buyer_attrs.map { |buyer_attr, attr_value| [] }
+    @candidate_attr_matrix = @buyer_attrs.map { |buyer_attr, attr_value| [] }
+    @similar_attr_matrix = @buyer_attrs.map { |buyer_attr, attr_value| [] }
+
     @buyer_attrs.keys.each.with_index do |buyer_attr, idx|
       similar_buyers.each do |candidate_buyer|
-        @attr_matrix[idx] << [candidate_buyer[buyer_attr], 'special']
+        @similar_attr_matrix[idx] << [candidate_buyer[buyer_attr], 'special']
       end
-      candidate_buyers.each do |buyer|
-        @attr_matrix[idx] << [buyer[buyer_attr], 'normal']
+    end
+
+    @buyer_attrs.keys.each.with_index do |buyer_attr, idx|
+      candidate_buyers.each do |candidate_buyer|
+        @candidate_attr_matrix[idx] << [candidate_buyer[buyer_attr], 'normal']
       end
     end
   end

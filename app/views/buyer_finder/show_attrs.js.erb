@@ -4,13 +4,26 @@ if ($(widget_id).size()) {
 }
 $('<%= j render 'buyer_finder/buyer_attrs', attrs: @buyer_attrs %>').insertAfter($('#pre_attrs_widget'));
 
-var matrix = <%=raw @attr_matrix.to_json %>;
+var similar_matrix = <%=raw @similar_attr_matrix.to_json %>;
+var candidate_matrix = <%=raw @candidate_attr_matrix.to_json %>;
 var attrs = <%=raw @buyer_attrs.values.map { |attr| attr.to_s } %>;
 $(widget_id).find('td.attr-filter').each(function(index, elem) {
-  values = _.filter(matrix[index], function(value) { return value != null; });
+  similar_values = _.filter(similar_matrix[index], function(value) { return value != null; });
+  similar_values_min = _.min(similar_values, function(v) { return v[0]; })[0];
+  similar_values_max = _.max(similar_values, function(v) { return v[0]; })[0];
+
+  candidate_values = _.filter(candidate_matrix[index], function(value) { return value != null; });
+  candidate_values_min = _.min(candidate_values, function(v) { return v[0]; })[0];
+  candidate_values_max = _.max(candidate_values, function(v) { return v[0]; })[0];
+
+  values_min = _.min([similar_values_min, candidate_values_min]);
+  values_max = _.max([similar_values_max, candidate_values_max]);
+
+  new AttrFilter("#" + elem.id, attrs[index], attrs[index], function(extent) {
+  }).build(similar_values, values_min, values_max);
   new AttrFilter("#" + elem.id, attrs[index], attrs[index], function(extent) {
     $(this[0]).closest('td').find('.hidden-min').val(extent[0]);
     $(this[0]).closest('td').find('.hidden-max').val(extent[1]);
-  }).build(values);
+  }).build(candidate_values, values_min, values_max);
 });
 

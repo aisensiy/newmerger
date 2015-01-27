@@ -1,10 +1,10 @@
 class AttrFilter
   constructor: (@container, @attr, @attr_text, @callback) ->
-    @width = 440
+    @width = 640
     @height = 40
     @extent = null
 
-  build: (values) ->
+  build: (values, min_value, max_value) ->
     self = this
     values.sort((a, b) ->
       if a[0] > b[0]
@@ -14,8 +14,6 @@ class AttrFilter
       else
         0
     )
-    min_value = (_.min(values, (v) -> v[0]))[0]
-    max_value = (_.max(values, (v) -> v[0]))[0]
     margin = {top: 15, right: 10, bottom: 10, left: 10}
 
     width =  @width - margin.left - margin.right
