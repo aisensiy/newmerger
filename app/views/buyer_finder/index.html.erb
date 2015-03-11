@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="form-group">
-      <label for="industry_id" class="col-sm-1 control-label no-padding-left">行业</label>
+      <label for="industry_id" class="col-sm-1 control-label no-padding-left">标的公司行业</label>
       <%= select_tag(:industry_id,
       options_for_select([''] + @industries.map { |ind| [ind.name, ind.id] }),
       class: '',

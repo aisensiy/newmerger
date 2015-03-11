@@ -9,7 +9,7 @@ class TargetFinderController < ApplicationController
 
   def reference_bargains
     industry_id = params[:industry_id]
-    @bargains = Target.where(industry_id: industry_id)
+    @bargains = Buyer.where(industry_id: industry_id)
       .includes(bargains: [:buyer, :target]).map(&:bargains).flatten
     @bargains.sort! { |a, b| b.sale_at <=> a.sale_at }
     render 'buyer_finder/reference_bargains', layout: false, content_type: 'text/html'
