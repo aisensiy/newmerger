@@ -10,13 +10,12 @@
         </label>
       </th>
       -->
-      <th>买家</th>
+      <th class="buyer-col">买家</th>
+      <th>买家行业</th>
       <th>卖家</th>
+      <th>卖家行业</th>
       <th class="hidden-480">价格(万元)</th>
-
-      <th>
-        时间
-      </th>
+      <th class="sale-at-col">时间</th>
       <!--
       <th class="hidden-480">Status</th>
 
@@ -40,9 +39,11 @@
     <td>
       <%= bargain.buyer.company_name %>
     </td>
+    <td><%= bargain.buyer.industry_obj.name %></td>
     <td>
       <%= bargain.target.company_name %>
     </td>
+    <td><%= bargain.target.industry_obj.name %></td>
     <td class="hidden-480">
       <%= bargain.bargain_value %>
     </td>
