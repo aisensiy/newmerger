@@ -22,10 +22,6 @@ class TargetFinderController < ApplicationController
 
     buyer_attrs = @buyer_attrs.dup
     buyer_attrs.delete(:buyer_industry)
-    buyer_attrs[:market_value] = buyer_attrs[:market_value].to_f * 10000
-    buyer_attrs[:cash_reserve_1] = buyer_attrs[:cash_reserve_1].to_f * 10000
-    buyer_attrs[:cash_reserve_2] = buyer_attrs[:cash_reserve_2].to_f * 10000
-    buyer_attrs[:cash_reserve_3] = buyer_attrs[:cash_reserve_3].to_f * 10000
     similar_buyers = Buyer.similar_with_index(candidate_buyers, buyer_attrs).map { |v| v[0] }
 
     similar_targets = similar_buyers.map(&:bargains).flatten.map(&:target)
