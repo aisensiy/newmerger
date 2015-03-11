@@ -27,3 +27,9 @@ $(widget_id).find('td.attr-filter').each(function(index, elem) {
   }).build(candidate_values, values_min, values_max);
 });
 
+// scroll to view
+var offset = $(widget_id).offset();
+$('body').animate({
+  scrollTop: offset.top - 20,
+  scrollLeft: offset.left
+});
