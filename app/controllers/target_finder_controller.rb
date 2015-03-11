@@ -74,5 +74,6 @@ class TargetFinderController < ApplicationController
                              @target_attrs.keys,
                              @target_attr_weights,
                              k=20).map { |v| v[0] }
+    @result.select! { |target| target.bargains_count == 0 }
   end
 end
