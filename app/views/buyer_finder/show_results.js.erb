@@ -8,3 +8,10 @@ setTimeout(function() {
     headers : { 0: { sorter: false } }
   });
 }, 50);
+
+// scroll to view
+var offset = $(recomand_buyers_widget_id).offset();
+$('body').animate({
+  scrollTop: offset.top - 20,
+  scrollLeft: offset.left
+});
