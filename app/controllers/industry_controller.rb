@@ -4,8 +4,8 @@ class IndustryController < ApplicationController
       {
         label: parent.name,
         id: parent.id,
-        children: parent.child_industries.select do |child|
-          !child.is_deprecated
+        children: parent.child_industries.reject do |child|
+          child.is_deprecated? or (child.secondary_buyers.size == 0 && child.secondary_targets.size == 0)
         end.map { |child| { id: child.id, label: child.name } }
       }
     end
