@@ -32,3 +32,9 @@
 #buyer-finder-bargains .widget-body {
   height: 390px;
 }
+
+#industry_tree {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-top: 5px;
+}
