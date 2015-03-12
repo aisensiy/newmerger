@@ -55,3 +55,10 @@ $ ->
     trigger_elem: '#target_industry_btn',
     hidden_industry_elem: '#target_industry_hidden'
   })
+
+  fetch_reference_bargains_from_target_industry({
+    target_elem: '#reference_bargains_by_buyer_industry_container',
+    request_path: '/target_finder/reference_bargains',
+    trigger_elem: '#buyer_industry_btn',
+    hidden_industry_elem: '#buyer_industry_hidden'
+  })
