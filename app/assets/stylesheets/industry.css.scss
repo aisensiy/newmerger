@@ -1,0 +1,16 @@
+ul.jqtree-tree .jqtree-element {
+    cursor: default;
+}
+
+.jqtree-folder.jqtree_common ul div.jqtree-element.jqtree_common {
+  margin-left: 1.5em;
+  .jqtree-title.jqtree_common {
+    margin-left: 0 !important;
+  }
+}
+
+#industry_tree {
+  max-height: 300px;
+  overflow-y: auto;
+  padding-top: 5px;
+}

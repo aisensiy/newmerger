@@ -5,10 +5,14 @@
   <div class="col-xs-12">
     <div class="form-group">
       <label for="industry_id" class="col-sm-1 control-label no-padding-left">上市公司行业</label>
-      <%= select_tag(:industry_id,
-      options_for_select([''] + @industries.map { |ind| [ind.name, ind.id] }),
-      class: '',
-      id: 'buyer_industry') %>
+      <div id="industry_tree"></div>
+      <p class="tips">
+      <br />
+      注意，一次只能选取一个一级行业分类或者一个二级行业分类
+      </p>
+    </div>
+    <div class="form-group text-center">
+      <button class="btn btn-success" id="buyer_industry_btn">确认</button>
     </div>
   </div>
 </div>

@@ -9,8 +9,15 @@ class TargetFinderController < ApplicationController
 
   def reference_bargains
     industry_id = params[:industry_id]
-    @bargains = Buyer.where(industry_id: industry_id)
-      .includes(bargains: [:buyer, :target]).map(&:bargains).flatten
+    industry = Industry.find(industry_id)
+    if industry.is_secondary?
+      @bargains = Buyer.where(secondary_industry_id: industry_id)
+        .includes(bargains: [:buyer, :target]).map(&:bargains).flatten
+    else
+      @bargains = Buyer.where(industry_id: industry_id)
+        .includes(bargains: [:buyer, :target]).map(&:bargains).flatten
+    end
+
     @bargains.sort! { |a, b| b.sale_at <=> a.sale_at }
     render 'buyer_finder/reference_bargains', layout: false, content_type: 'text/html'
   end
@@ -18,8 +25,14 @@ class TargetFinderController < ApplicationController
   def show_attrs
     @target_attrs = APP_CONFIG['target_search_attrs']
     @buyer_attrs = params[:buyer_attrs]
-    candidate_buyers = Buyer.where('bargains_count > 0')
-                            .where(industry_id: @buyer_attrs[:buyer_industry])
+    industry = Industry.find(@buyer_attrs[:buyer_industry])
+    if industry.is_secondary?
+      candidate_buyers = Buyer.where('bargains_count > 0')
+                              .where(secondary_industry_id: @buyer_attrs[:buyer_industry])
+    else
+      candidate_buyers = Buyer.where('bargains_count > 0')
+                              .where(industry_id: @buyer_attrs[:buyer_industry])
+    end
 
     buyer_attrs = @buyer_attrs.dup
     buyer_attrs.delete(:buyer_industry)
@@ -27,9 +40,15 @@ class TargetFinderController < ApplicationController
 
     similar_targets = similar_buyers.map(&:bargains).flatten.map(&:target)
     session[:similar_target_ids] = similar_targets.map(&:id)
-    candidate_targets = Target.where('industry_id in (?) and id not in (?)',
-                                     similar_targets.map(&:industry_id).uniq,
-                                     similar_targets.map(&:id))
+    if industry.is_secondary?
+      candidate_targets = Target.where('secondary_industry_id in (?) and id not in (?)',
+                                       similar_targets.map(&:secondary_industry_id).reject{ |i| i.nil? || i.empty? }.uniq,
+                                       similar_targets.map(&:id))
+    else
+      candidate_targets = Target.where('industry_id in (?) and id not in (?)',
+                                       similar_targets.map(&:industry_id).uniq,
+                                       similar_targets.map(&:id))
+    end
     @attr_matrix = @target_attrs.map { |target_attr, attr_value| [] }
     @target_attrs.keys.each.with_index do |target_attr, idx|
       candidate_targets.each do |candidate_target|

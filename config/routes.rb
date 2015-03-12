@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'industry/tree'
+
   devise_for :users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   get 'mockup/index'

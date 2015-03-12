@@ -21,6 +21,8 @@
 //= require attr_filter
 //= require buyer_finder
 //= require target_finder
+//= require tree.jquery
+//= require industry
 
 $(document).on('click', 'th input:checkbox' , function(){
   var that = this;
